@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-let baseURL = 'http://localhost:3006/api';
+let baseURL = 'http://localhost:3008/api';
 if (process.env.NODE_ENV === 'production') {
-    baseURL = 'http://localhost:3006/api';
+    baseURL = 'http://localhost:3008/api';
 }
 export { baseURL };
 
