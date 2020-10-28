@@ -3,7 +3,7 @@ import { Table as ATable } from "antd";
 
 const Table = props => {
     return (
-        <ATable {...props}>
+        <ATable {...props} showSorterTooltip={false}>
             {props.children}
         </ATable>
     );

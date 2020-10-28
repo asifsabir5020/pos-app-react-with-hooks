@@ -21,7 +21,7 @@ function App() {
               }}
           >
               <div className="logo">
-                  PoS
+                  POS
               </div>
               <Menu theme="light" mode="inline" defaultSelectedKeys={['4']}>
                   <Menu.Item key="1" icon={<BarChartOutlined />}>

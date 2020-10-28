@@ -1,3 +1,4 @@
+import * as sorter from './../../Common/utiles/sorters';
 
 export const columns = () => {
     return [
@@ -5,6 +6,7 @@ export const columns = () => {
             title: 'Name',
             dataIndex: 'title',
             key: 'title',
+            sorter: (a, b) => sorter.characterSorter(a,b, 'title'),
         }
     ];
 };
