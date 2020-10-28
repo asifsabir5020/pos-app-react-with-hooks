@@ -1,35 +1,52 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {Modal} from "antd";
+import { Input, Modal} from "antd";
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
 import { columns} from "./columns";
-import Table from "../../Common/Components/Table";
 import {throwServerError} from "../../Common/utiles/throwServerError";
-import AButton from "../../Common/Components/Input/AButton";
 import ProductCategoryForm from "./ProductCategoryForm";
-
+import filter from "../../Common/utiles/sorters/filter";
+import Table from "../../Common/Components/Table";
+import AButton from "../../Common/Components/Input/AButton";
 
 const ProductCategory = () => {
-    const [data, setData] = useState([]);
+    const [state, setState] = useState({ data: [], filteredData: [] });
     const [shouldShowModal, setShouldShowModal] = useState(false);
     useEffect(() => {
         (async function fetch() {
             try{
-                const response = await axios.get(PRODUCT_CATEGORY_API_URL);
-                setData(response.data);
+                const { data } = await axios.get(PRODUCT_CATEGORY_API_URL);
+                setState({data, filteredData: data});
             }catch (e){
-                setData([]);
+                setState({ data: [], filteredData: [] });
                 throwServerError(e);
             }
          })();
     },[]);
     return (
         <div>
-            <h2>Product Category</h2>
-            <AButton onClick={() => setShouldShowModal(!shouldShowModal)}>Add</AButton>
-            <Table dataSource={data} columns={columns()} rowKey="_id"/>
+            <Table
+                dataSource={state.filteredData}
+                columns={columns()}
+                showSorterTooltip={false}
+                scroll={{ y: 500 }}
+
+                customToolbar={() => (
+                    <AButton
+                        type="primary"
+                        onClick={() => setShouldShowModal(!shouldShowModal)}
+                    >
+                        Add
+                    </AButton>
+                )}
+                customeSearchRender={() => (
+                    <Input placeholder="Search" onChange={e => {
+                        setState({...state, filteredData: filter(state.data, e.target.value)});
+                    }}/>
+                )}
+            />
             <Modal
-                title="Basic Modal"
+                title="Category Modal"
                 visible={shouldShowModal}
                 onCancel={() => setShouldShowModal(false)}
                 footer={false}
