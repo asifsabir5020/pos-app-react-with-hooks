@@ -9,23 +9,45 @@ import {PRODUCT_CATEGORY_API_URL} from "./constants";
 import {throwServerError} from "../../Common/utiles/throwServerError";
 
 const ProductCategoryForm = props => {
+    const { selectedRecord, isEditMode, setShouldShowModal, setSelectedRecord, refreshList } = props;
+    const params = {
+        title: selectedRecord.title || '',
+    };
+
     return (
         <Formik
-            initialValues={{ title: '' }}
+            initialValues={{...params}}
             validationSchema={Yup.object({
                 title: Yup.string().required('Required'),
             })}
-            onSubmit={async (values, { setSubmitting }) => {
-                try{
-                    const response = await axios.post(PRODUCT_CATEGORY_API_URL, {
-                        ...values
-                    });
-                }catch (e){
-                    throwServerError(e)
+            enableReinitialize
+            onSubmit={async values => {
+                if(isEditMode){
+                    try{
+                        await axios.put(`${PRODUCT_CATEGORY_API_URL}/${selectedRecord._id}`, {
+                            ...values
+                        });
+                        refreshList();
+                        setShouldShowModal(false);
+                        setSelectedRecord({});
+                    }catch (e){
+                        throwServerError(e)
+                    }
+                }else{
+                    try{
+                        await axios.post(PRODUCT_CATEGORY_API_URL, {
+                            ...values
+                        });
+                        refreshList();
+                        setShouldShowModal(false);
+                        setSelectedRecord({});
+                    }catch (e){
+                        throwServerError(e)
+                    }
                 }
             }}
         >
-            {({ values }) => (<Form>
+            {({ values, isSubmitting, dirty }) => (<Form>
                 <Row gutter={10}>
                     <Col md={20}>
                         <Field
@@ -35,7 +57,14 @@ const ProductCategoryForm = props => {
                         />
                     </Col>
                 </Row>
-                <AButton type="primary" htmlType="submit">Save</AButton>
+                <AButton
+                    disabled={!dirty}
+                    type="primary"
+                    htmlType="submit"
+                    loading={isSubmitting}
+                >
+                    {isEditMode ? 'Save Changes':'Create'}
+                </AButton>
             </Form>)}
         </Formik>
     );

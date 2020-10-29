@@ -1,6 +1,6 @@
 import React from "react";
 import {Col, Input, Row, Table as ATable} from "antd";
-import filter from "../../utiles/sorters/filter";
+import filter from "../../utiles/filter";
 
 const Table = props => {
     const rowKey = props.rowKey ? props.rowKey: '_id';
@@ -21,7 +21,7 @@ const Table = props => {
             <ATable
                 {...props}
                 rowKey={rowKey}
-                pagination={{position: ["bottomLeft"], pageSize: 5}}
+                pagination={{position: ["bottomLeft"], pageSize: 10}}
             />
         </>
     );

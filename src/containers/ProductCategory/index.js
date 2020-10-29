@@ -3,55 +3,78 @@ import axios from 'axios';
 import { Input, Modal} from "antd";
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
 import { columns} from "./columns";
-import {throwServerError} from "../../Common/utiles/throwServerError";
 import ProductCategoryForm from "./ProductCategoryForm";
-import filter from "../../Common/utiles/sorters/filter";
+import filter from "../../Common/utiles/filter";
 import Table from "../../Common/Components/Table";
 import AButton from "../../Common/Components/Input/AButton";
+import useFetch from "../../Common/hooks/useFetch";
 
 const ProductCategory = () => {
-    const [state, setState] = useState({ data: [], filteredData: [] });
+    const [selectedRecord, setSelectedRecord] = useState({});
     const [shouldShowModal, setShouldShowModal] = useState(false);
-    useEffect(() => {
-        (async function fetch() {
-            try{
-                const { data } = await axios.get(PRODUCT_CATEGORY_API_URL);
-                setState({data, filteredData: data});
-            }catch (e){
-                setState({ data: [], filteredData: [] });
-                throwServerError(e);
-            }
-         })();
-    },[]);
+    const [fetchListDep, setFetchListDep] = useState(0);
+    const [searchQuery, setSearchQuery] = useState('');
+    const refreshList = () => setFetchListDep(fetchListDep + 1);
+    const isEditMode = Object.keys(selectedRecord).length > 0;
+
+    const { filteredData: data, loading } = useFetch(PRODUCT_CATEGORY_API_URL, {
+        config: { params: {} },
+        deps: [fetchListDep],
+        searchQuery,
+        callBack: () => {
+            // setGlobalLoading(false);
+            console.log('callBack');
+        },
+        callBefore: () => {
+            // setGlobalLoading(true);
+            console.log('callBefore');
+        },
+    });
+
     return (
         <div>
             <Table
-                dataSource={state.filteredData}
-                columns={columns()}
+                dataSource={data}
+                columns={columns({setSelectedRecord, setShouldShowModal})}
                 showSorterTooltip={false}
                 scroll={{ y: 500 }}
-
+                onRow={record => ({
+                    onClick: e => {
+                        if(record._id !== selectedRecord._id){
+                            setSelectedRecord(record);
+                        }
+                    }
+                })}
                 customToolbar={() => (
-                    <AButton
-                        type="primary"
-                        onClick={() => setShouldShowModal(!shouldShowModal)}
-                    >
-                        Add
-                    </AButton>
+                    <>
+                        <AButton
+                            type="primary"
+                            onClick={() => setShouldShowModal(!shouldShowModal)}
+                        >
+                            Add
+                        </AButton>
+                    </>
                 )}
                 customeSearchRender={() => (
-                    <Input placeholder="Search" onChange={e => {
-                        setState({...state, filteredData: filter(state.data, e.target.value)});
-                    }}/>
+                    <Input placeholder="Search" onChange={e => setSearchQuery(e.target.value)}/>
                 )}
             />
             <Modal
-                title="Category Modal"
+                title={isEditMode ? 'Modify Category':'Add Category'}
                 visible={shouldShowModal}
-                onCancel={() => setShouldShowModal(false)}
+                onCancel={() => {
+                    setShouldShowModal(false);
+                    setSelectedRecord({});
+                }}
                 footer={false}
             >
-                <ProductCategoryForm/>
+                <ProductCategoryForm
+                    selectedRecord={selectedRecord}
+                    isEditMode={isEditMode}
+                    setShouldShowModal={setShouldShowModal}
+                    setSelectedRecord={setSelectedRecord}
+                    refreshList={refreshList}
+                />
             </Modal>
         </div>
 
