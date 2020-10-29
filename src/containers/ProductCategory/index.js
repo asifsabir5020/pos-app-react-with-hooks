@@ -21,11 +21,11 @@ const ProductCategory = () => {
         searchQuery,
         callBack: () => {
             // setGlobalLoading(false);
-            console.log('callBack');
+            // console.log('callBack');
         },
         callBefore: () => {
             // setGlobalLoading(true);
-            console.log('callBefore');
+            // console.log('callBefore');
         },
     });
 
@@ -34,7 +34,7 @@ const ProductCategory = () => {
             <Table
                 loading={loading}
                 dataSource={data}
-                columns={columns({selectedRecord, setSelectedRecord, setShouldShowModal, refreshList})}
+                columns={columns({ setSelectedRecord, setShouldShowModal, refreshList})}
                 showSorterTooltip={false}
                 scroll={{ y: 500 }}
                 onRow={record => ({

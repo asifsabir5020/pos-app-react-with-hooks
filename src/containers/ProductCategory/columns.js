@@ -8,25 +8,19 @@ import {throwServerError} from "../../Common/utiles/throwServerError";
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
 
 
-export const columns = ({selectedRecord, setSelectedRecord, setShouldShowModal, refreshList}) => {
+export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) => {
 
-    const handleDeleteClick = async () => {
+    const handleDelete = async record => {
         try {
-            await axios.delete(`${PRODUCT_CATEGORY_API_URL}/${selectedRecord._id}`);
+            await axios.delete(`${PRODUCT_CATEGORY_API_URL}/${record._id}`);
             await refreshList();
             message.success('Product Category Deleted Successfully!');
         } catch (e) {
             throwServerError(e);
         }
-    };
+    }
 
     return [
-        {
-            title: 'Id',
-            dataIndex: '_id',
-            key: '_id',
-            sorter: (a, b) => sorter.characterSorter(a,b, '_id'),
-        },
         {
             title: 'Name',
             dataIndex: 'title',
@@ -46,14 +40,14 @@ export const columns = ({selectedRecord, setSelectedRecord, setShouldShowModal, 
                     }} />
                     <ActionIcon
                         type="delete"
-                        onClick={() => {
+                        onClick={async () => {
                             Modal.confirm({
                                 icon: <ExclamationCircleOutlined />,
-                                content: 'Do you want to delete this record?',
+                                content: 'Do you want to delete this Product Category?',
                                 okText: 'Yes',
                                 cancelText: 'No',
                                 onOk() {
-                                    handleDeleteClick()
+                                    handleDelete(record);
                                 },
                             });
                         }}

@@ -10,7 +10,7 @@ const ActionIcon = props => {
     let IconComponent = IconComponents[type].component;
     let componentStyle = IconComponents[type].style;
     return (
-        <IconComponent onClick={props.onClick} style={{ ...componentStyle }}/>
+        <IconComponent onClick={props.onClick} style={{ ...componentStyle, marginLeft: 5, marginRight: 5 }}/>
     );
 }
 export default ActionIcon;

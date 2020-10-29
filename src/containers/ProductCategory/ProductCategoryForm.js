@@ -21,15 +21,16 @@ const ProductCategoryForm = props => {
                 title: Yup.string().required('Required'),
             })}
             enableReinitialize
-            onSubmit={async values => {
+            onSubmit={async (values, {resetForm}) => {
                 if(isEditMode){
                     try{
                         await axios.put(`${PRODUCT_CATEGORY_API_URL}/${selectedRecord._id}`, {
                             ...values
                         });
-                        refreshList();
-                        setShouldShowModal(false);
-                        setSelectedRecord({});
+                        await refreshList();
+                        await setShouldShowModal(false);
+                        await setSelectedRecord({});
+                        await resetForm();
                         message.success('Product Category Updated Successfully!');
                     }catch (e){
                         throwServerError(e)
@@ -39,9 +40,10 @@ const ProductCategoryForm = props => {
                         await axios.post(PRODUCT_CATEGORY_API_URL, {
                             ...values
                         });
-                        refreshList();
-                        setShouldShowModal(false);
-                        setSelectedRecord({});
+                        await refreshList();
+                        await setShouldShowModal(false);
+                        await setSelectedRecord({});
+                        await resetForm();
                         message.success('Product Category Created Successfully!');
                     }catch (e){
                         throwServerError(e)
