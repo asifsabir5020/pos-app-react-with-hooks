@@ -14,6 +14,7 @@ export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) =
         try {
             await axios.delete(`${PRODUCT_CATEGORY_API_URL}/${record._id}`);
             await refreshList();
+            await setSelectedRecord({});
             message.success('Product Category Deleted Successfully!');
         } catch (e) {
             throwServerError(e);
