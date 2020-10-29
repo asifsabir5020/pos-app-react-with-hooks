@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React, { useState} from 'react';
 import { Input, Modal} from "antd";
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
 import { columns} from "./columns";
 import ProductCategoryForm from "./ProductCategoryForm";
-import filter from "../../Common/utiles/filter";
 import Table from "../../Common/Components/Table";
 import AButton from "../../Common/Components/Input/AButton";
 import useFetch from "../../Common/hooks/useFetch";
@@ -34,8 +32,9 @@ const ProductCategory = () => {
     return (
         <div>
             <Table
+                loading={loading}
                 dataSource={data}
-                columns={columns({setSelectedRecord, setShouldShowModal})}
+                columns={columns({selectedRecord, setSelectedRecord, setShouldShowModal, refreshList})}
                 showSorterTooltip={false}
                 scroll={{ y: 500 }}
                 onRow={record => ({
@@ -67,6 +66,7 @@ const ProductCategory = () => {
                     setSelectedRecord({});
                 }}
                 footer={false}
+                maskClosable={false}
             >
                 <ProductCategoryForm
                     selectedRecord={selectedRecord}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col} from 'antd';
+import {Row, Col, message} from 'antd';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import AInput from "./../../Common/Components/Input/AInput";
@@ -30,6 +30,7 @@ const ProductCategoryForm = props => {
                         refreshList();
                         setShouldShowModal(false);
                         setSelectedRecord({});
+                        message.success('Product Category Updated Successfully!');
                     }catch (e){
                         throwServerError(e)
                     }
@@ -41,6 +42,7 @@ const ProductCategoryForm = props => {
                         refreshList();
                         setShouldShowModal(false);
                         setSelectedRecord({});
+                        message.success('Product Category Created Successfully!');
                     }catch (e){
                         throwServerError(e)
                     }
