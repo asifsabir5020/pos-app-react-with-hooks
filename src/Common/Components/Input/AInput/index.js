@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input } from "antd";
 
 const AInput = props => {
-    const {field:{ name, value, type}, form:{errors, setFieldValue}} = props;
+    const {field:{ name, value}, form:{errors, setFieldValue}, type} = props;
     return (
         <Form.Item
             hasFeedback={!!errors[name]}

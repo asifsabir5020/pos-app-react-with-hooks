@@ -7,7 +7,6 @@ import ActionIcon from "../../Common/Components/ActionIcon";
 import {throwServerError} from "../../Common/utiles/throwServerError";
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
 
-
 export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) => {
 
     const handleDelete = async record => {

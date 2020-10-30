@@ -1,22 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createBrowserHistory } from "history";
 import './index.css';
 import App from './App';
-import { baseURL} from "./Common/utiles/axoisConfig";
+import {baseURL} from './Common/utiles/axoisConfig';
 import reportWebVitals from './reportWebVitals';
 
-axios.create({baseURL});
+const history = createBrowserHistory();
 
 ReactDOM.render(
-    <BrowserRouter>
+    <Router history={history}>
         <App />
-    </BrowserRouter>,
+    </Router>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

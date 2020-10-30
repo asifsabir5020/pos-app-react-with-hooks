@@ -1,7 +1,6 @@
 import { message } from 'antd';
 
 export const throwServerError = error => {
-    console.log('error', error.response);
     if (error.response && error.response.status === 401) {
         message.error('Unauthorized error');
     } else if (error.response && error.response.data && error.response.data.code !== 11000) {

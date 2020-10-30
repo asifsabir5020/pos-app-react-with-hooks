@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import _axios from 'axios';
 import filterData from './../utiles/filter';
-import { throwServerError } from './../utiles/throwServerError';
-import { baseURL } from './../utiles/axoisConfig';
+import { throwServerError } from '../utiles/throwServerError';
 
 const setDefaultData = option => {
     let defaultData = [];
@@ -23,7 +22,7 @@ const useFetch = (api, options = {}) => {
         sorter,
         deps,
         searchQuery,
-        // baseURL,
+        baseURL,
         onError,
         shouldFetch,
     } = options;

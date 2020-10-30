@@ -51,9 +51,9 @@ const ProductCategoryForm = props => {
                 }
             }}
         >
-            {({ values, isSubmitting, dirty }) => (<Form>
+            {({ isSubmitting, dirty }) => (<Form>
                 <Row gutter={10}>
-                    <Col md={20}>
+                    <Col md={24}>
                         <Field
                             name="title"
                             component={AInput}
@@ -61,14 +61,19 @@ const ProductCategoryForm = props => {
                         />
                     </Col>
                 </Row>
-                <AButton
-                    disabled={!dirty}
-                    type="primary"
-                    htmlType="submit"
-                    loading={isSubmitting}
-                >
-                    {isEditMode ? 'Save Changes':'Create'}
-                </AButton>
+                <Row>
+                    <Col>
+                        <AButton
+                            disabled={!dirty}
+                            type="primary"
+                            htmlType="submit"
+                            loading={isSubmitting}
+                            style={{ float: 'right'}}
+                        >
+                            {isEditMode ? 'Save Changes':'Create'}
+                        </AButton>
+                    </Col>
+                </Row>
             </Form>)}
         </Formik>
     );
