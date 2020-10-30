@@ -3,10 +3,12 @@ import { Layout, Menu, Dropdown, Row, Col } from 'antd';
 import {  Route, Switch, Link, Redirect, withRouter, useHistory } from 'react-router-dom';
 import {ApartmentOutlined, BarChartOutlined, DownOutlined, LogoutOutlined} from '@ant-design/icons';
 import './App.css';
-import Error404 from './Common/Components/Error404';
-import ProductCategory from "./containers/ProductCategory";
-import Dashboard from "./containers/Dashboard";
 import Login from "./containers/Auth/Login";
+import Error404 from './Common/Components/Error404';
+import Dashboard from "./containers/Dashboard";
+import ProductCategory from "./containers/ProductCategory";
+import Product from "./containers/Product";
+
 import {isAuthenticatedUser, removeTokenAndUser} from "./containers/Auth/utils";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -50,6 +52,9 @@ const AppLayout = () => {
                         <Link to="/dashboard">Dashboard</Link>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<ApartmentOutlined />}>
+                        <Link to="/product">Product</Link>
+                    </Menu.Item>
+                    <Menu.Item key="3" icon={<ApartmentOutlined />}>
                         <Link to="/product-category">Product Category</Link>
                     </Menu.Item>
                 </Menu>
@@ -72,6 +77,7 @@ const AppLayout = () => {
                         <Switch>
                             <Route path='/' component={Dashboard} exact/>
                             <Route path='/dashboard' component={Dashboard} exact/>
+                            <Route path='/product' component={Product} exact/>
                             <Route path='/product-category' component={ProductCategory}/>
                             <Route component={Error404} />
                         </Switch>

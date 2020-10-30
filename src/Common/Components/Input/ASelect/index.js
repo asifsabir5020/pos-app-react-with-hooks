@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Select } from "antd";
 
 const ASelect = props => {
-    const {field:{ name }, form:{errors, setFieldValue }} = props;
+    const {field:{ name, value }, form:{errors, setFieldValue }} = props;
     return (
         <Form.Item
             hasFeedback={!!errors[name]}
@@ -11,6 +11,7 @@ const ASelect = props => {
         >
             <Select
                 {...props}
+                value={value}
                 placeholder={props.placeholder}
                 showArrow
                 onChange={v => setFieldValue(name, v)}
