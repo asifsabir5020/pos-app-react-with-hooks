@@ -13,8 +13,8 @@ import {landingRoute, setTokenAndUser} from "../utils";
 const LoginForm = () => {
     const history = useHistory();
     const params = {
-        email:  'admin@admin.com',
-        password:  'admin123',
+        email:  '',
+        password:  '',
     };
 
     return (
@@ -57,7 +57,7 @@ const LoginForm = () => {
                             placeholder="User Password"
                         />
                 <AButton
-                    // disabled={!dirty}
+                    disabled={!dirty}
                     type="primary"
                     htmlType="submit"
                     loading={isSubmitting}

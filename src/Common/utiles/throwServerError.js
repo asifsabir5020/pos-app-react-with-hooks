@@ -2,7 +2,7 @@ import { message } from 'antd';
 
 export const throwServerError = error => {
     if (error.response && error.response.status === 401) {
-        message.error('Unauthorized error');
+        message.error('unauthenticated user / login require');
         localStorage.clear();
         window.location.reload();
     } else if (error.response && error.response.data && error.response.data.code !== 11000) {
