@@ -10,7 +10,7 @@ import {LOGIN_API_URL} from "./constants";
 import {throwServerError} from "../../../Common/utiles/throwServerError";
 import {landingRoute, setTokenAndUser} from "../utils";
 
-const LoginForm = props => {
+const LoginForm = () => {
     const history = useHistory();
     const params = {
         email:  'admin@admin.com',
@@ -42,7 +42,7 @@ const LoginForm = props => {
                     }
             }}
         >
-            {({ values, isSubmitting, dirty }) => (<Form>
+            {({ isSubmitting, dirty }) => (<Form>
                 <Row gutter={10}>
                     <Col span={6} offset={18}>
                         <Field

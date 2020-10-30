@@ -3,13 +3,17 @@ import { message } from 'antd';
 export const throwServerError = error => {
     if (error.response && error.response.status === 401) {
         message.error('Unauthorized error');
+        localStorage.clear();
+        window.location.reload();
     } else if (error.response && error.response.data && error.response.data.code !== 11000) {
         try {
             Object.entries(error.response.data).forEach(([key, value]) => {
                 if(value.message){
                     message.error(value.message);
+                }else if(key === 'error'){
+                    message.error(value);
                 }else{
-                    message.error('Something went wrong!');
+                    message.error('Something went wrong!1');
                 }
             });
         } catch (e) {
@@ -20,6 +24,6 @@ export const throwServerError = error => {
     } else if (error.message) {
         message.error(error.message);
     } else {
-        message.error('Something went wrong!');
+        message.error('Something went wrong!2');
     }
 };
