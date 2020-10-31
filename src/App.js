@@ -8,6 +8,7 @@ import Error404 from './Common/Components/Error404';
 import Dashboard from "./containers/Dashboard";
 import ProductCategory from "./containers/ProductCategory";
 import Product from "./containers/Product";
+import Sales from "./containers/Sales";
 
 import {isAuthenticatedUser, removeTokenAndUser} from "./containers/Auth/utils";
 
@@ -52,10 +53,7 @@ const AppLayout = () => {
                         <Link to="/dashboard">Dashboard</Link>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<ApartmentOutlined />}>
-                        <Link to="/product">Product</Link>
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<ApartmentOutlined />}>
-                        <Link to="/product-category">Product Category</Link>
+                        <Link to="/sales">Sales</Link>
                     </Menu.Item>
                 </Menu>
             </Sider>
@@ -77,8 +75,7 @@ const AppLayout = () => {
                         <Switch>
                             <Route path='/' component={Dashboard} exact/>
                             <Route path='/dashboard' component={Dashboard} exact/>
-                            <Route path='/product' component={Product} exact/>
-                            <Route path='/product-category' component={ProductCategory}/>
+                            <Route path='/sales' component={Sales}/>
                             <Route component={Error404} />
                         </Switch>
                     </div>

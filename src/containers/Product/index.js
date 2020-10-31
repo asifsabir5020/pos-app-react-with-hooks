@@ -29,11 +29,18 @@ const Product = () => {
         },
     });
 
+    const finalData = data.map(item => {
+        return {
+            ...item,
+            productCategory: item.category && item.category.title
+        }
+    });
+
     return (
         <div>
             <Table
                 loading={loading}
-                dataSource={data}
+                dataSource={finalData}
                 columns={columns({ setSelectedRecord, setShouldShowModal, refreshList})}
                 showSorterTooltip={false}
                 scroll={{ y: 500 }}

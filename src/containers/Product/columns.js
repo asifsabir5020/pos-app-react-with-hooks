@@ -28,6 +28,12 @@ export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) =
             sorter: (a, b) => sorter.characterSorter(a,b, 'title'),
         },
         {
+            title: 'Category',
+            dataIndex: 'productCategory',
+            key: 'productCategory',
+            sorter: (a, b) => sorter.characterSorter(a,b, 'productCategory'),
+        },
+        {
             title: 'Action',
             key: 'action',
             width: '10%',
