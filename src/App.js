@@ -6,10 +6,8 @@ import './App.css';
 import Login from "./containers/Auth/Login";
 import Error404 from './Common/Components/Error404';
 import Dashboard from "./containers/Dashboard";
-import ProductCategory from "./containers/ProductCategory";
-import Product from "./containers/Product";
+import UserAccount from "./containers/UserAccount";
 import Sales from "./containers/Sales";
-
 import {isAuthenticatedUser, removeTokenAndUser} from "./containers/Auth/utils";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -55,6 +53,9 @@ const AppLayout = () => {
                     <Menu.Item key="2" icon={<ApartmentOutlined />}>
                         <Link to="/sales">Sales</Link>
                     </Menu.Item>
+                    <Menu.Item key="3" icon={<ApartmentOutlined />}>
+                        <Link to="/user-account">User Account</Link>
+                    </Menu.Item>
                 </Menu>
             </Sider>
             <Layout className="site-layout" style={{ marginLeft: 200 }}>
@@ -76,6 +77,7 @@ const AppLayout = () => {
                             <Route path='/' component={Dashboard} exact/>
                             <Route path='/dashboard' component={Dashboard} exact/>
                             <Route path='/sales' component={Sales}/>
+                            <Route path='/user-account' component={UserAccount}/>
                             <Route component={Error404} />
                         </Switch>
                     </div>

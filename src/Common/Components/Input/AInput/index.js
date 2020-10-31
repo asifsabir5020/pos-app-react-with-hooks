@@ -10,6 +10,7 @@ const AInput = props => {
             help={errors[name]}
         >
             <Input
+                {...props}
                 placeholder={props.placeholder}
                 value={value}
                 onChange={e => setFieldValue(name, e.target.value.trim())}
