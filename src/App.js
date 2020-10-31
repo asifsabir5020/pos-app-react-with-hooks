@@ -8,7 +8,7 @@ import Error404 from './Common/Components/Error404';
 import Dashboard from "./containers/Dashboard";
 import UserAccount from "./containers/UserAccount";
 import Sales from "./containers/Sales";
-import {isAuthenticatedUser, removeTokenAndUser} from "./containers/Auth/utils";
+import {getUserRole, isAuthenticatedUser, removeTokenAndUser} from "./containers/Auth/utils";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -53,9 +53,11 @@ const AppLayout = () => {
                     <Menu.Item key="2" icon={<ApartmentOutlined />}>
                         <Link to="/sales">Sales</Link>
                     </Menu.Item>
-                    <Menu.Item key="3" icon={<ApartmentOutlined />}>
-                        <Link to="/user-account">User Account</Link>
-                    </Menu.Item>
+                    {getUserRole() && getUserRole() === 'admin' && (
+                        <Menu.Item key="3" icon={<ApartmentOutlined />}>
+                            <Link to="/user-account">User Account</Link>
+                        </Menu.Item>
+                    )}
                 </Menu>
             </Sider>
             <Layout className="site-layout" style={{ marginLeft: 200 }}>

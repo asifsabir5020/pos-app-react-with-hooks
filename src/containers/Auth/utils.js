@@ -12,6 +12,8 @@ export const removeTokenAndUser = () => {
 
 export const getAuthToken = () => localStorage.getItem('auth_token');
 
+export const getUserRole = () => localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).role || null;
+
 export const isAuthenticatedUser = () => {
     try{
         const token = localStorage.getItem('auth_token');
