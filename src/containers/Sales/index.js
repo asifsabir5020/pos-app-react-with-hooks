@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, Route, Switch, withRouter} from "react-router-dom";
 import {Menu} from "antd";
 import {MailOutlined} from '@ant-design/icons';
 import Product from "../Product";
 import ProductCategory from "../ProductCategory";
 import Error404 from "../../Common/Components/Error404";
+import {AppGlobalContext} from "../../Common/Components/AppGlobalContext";
 
 
 const Sales = props => {
+    const [appGlobalContext, setAppGlobalContext] = useContext(AppGlobalContext);
+    useEffect(() => {
+        setAppGlobalContext({...appGlobalContext, sectionTitle: 'Sales'});
+    },[]);
     const { history } = props;
     const [current, setCurrent] = useState();
     const handleClick = e => {

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createBrowserHistory } from "history";
+import socketIOClient from 'socket.io-client';
 import './index.css';
 import App from './App';
 import {baseURL} from './Common/utiles/axoisConfig';

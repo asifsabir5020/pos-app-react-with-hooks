@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Input, Modal} from "antd";
 import {USER_API_URL} from "./constants";
 import { columns} from "./columns";
@@ -6,6 +6,7 @@ import UserForm from "./UserForm";
 import Table from "../../Common/Components/Table";
 import AButton from "../../Common/Components/Input/AButton";
 import useFetch from "../../Common/hooks/useFetch";
+import {AppGlobalContext} from "../../Common/Components/AppGlobalContext";
 
 const UserAccount = () => {
     const [selectedRecord, setSelectedRecord] = useState({});
@@ -14,6 +15,11 @@ const UserAccount = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const refreshList = () => setFetchListDep(fetchListDep + 1);
     const isEditMode = Object.keys(selectedRecord).length > 0;
+
+    const [appGlobalContext, setAppGlobalContext] = useContext(AppGlobalContext);
+    useEffect(() => {
+        setAppGlobalContext({...appGlobalContext, sectionTitle: 'User Account'});
+    },[]);
 
     const { filteredData: data, loading } = useFetch(USER_API_URL, {
         config: { params: {} },

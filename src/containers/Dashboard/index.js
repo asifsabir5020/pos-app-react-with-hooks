@@ -1,6 +1,11 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
+import {AppGlobalContext} from "../../Common/Components/AppGlobalContext";
 
-const Dashboard = () => {
+const Dashboard = props => {
+    const [appGlobalContext, setAppGlobalContext] = useContext(AppGlobalContext);
+    useEffect(() => {
+        setAppGlobalContext({...appGlobalContext, sectionTitle: 'Dashboard'});
+    },[]);
     return (
         <div>
             <h2>Dashboard</h2>
