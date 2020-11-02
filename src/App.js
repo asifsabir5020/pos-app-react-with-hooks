@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {  Route, Switch, Redirect, withRouter } from 'react-router-dom';
-import socketIOClient from 'socket.io-client';
 import './App.css';
 import Login from "./containers/Auth/Login/Loadable";
 import Error404 from './Common/Components/Error404';
@@ -36,20 +35,6 @@ const AppLayout = () => {
 
 
 const App = () => {
-    // const [response, setResponse] = useState([]);
-    // useEffect(() => {
-    //     const socket = socketIOClient('http://localhost:8080');
-    //     socket.on("ToAPI", data => {
-    //         console.log('ToAPI', data);
-    //         setResponse([...response, data]);
-    //     });
-    //     socket.on("FromAPI", data => {
-    //         console.log('FromAPI', data);
-    //         setResponse([...response, data]);
-    //     });
-    //     return () => socket.disconnect();
-    // },[]);
-    // console.log('response', response);
     return (
         <>
             <Switch>

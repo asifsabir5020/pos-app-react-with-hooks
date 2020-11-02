@@ -1,6 +1,5 @@
 import React from "react";
-import {Col, Input, Row, Table as ATable} from "antd";
-import filter from "../../utiles/filter";
+import {Col, Row, Table as ATable} from "antd";
 
 const Table = props => {
     const rowKey = props.rowKey ? props.rowKey: '_id';

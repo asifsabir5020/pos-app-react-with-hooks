@@ -13,7 +13,7 @@ const AInput = props => {
                 {...props}
                 placeholder={props.placeholder}
                 value={value}
-                onChange={e => setFieldValue(name, e.target.value.trim())}
+                onChange={e => setFieldValue(name, e.target.value)}
                 type={type}
                 // onBlur={() => setFieldTouched(name)}
                 // onPressEnter={handleSubmit}

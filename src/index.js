@@ -10,6 +10,15 @@ import reportWebVitals from './reportWebVitals';
 
 const history = createBrowserHistory();
 
+const socket = socketIOClient('http://localhost:8080');
+socket.on("reload", data => {
+    if(data === 'reload'){
+        console.log('reload', data);
+        // localStorage.clear();
+        // window.location.reload();
+    }
+});
+
 ReactDOM.render(
     <Router history={history}>
         <App />

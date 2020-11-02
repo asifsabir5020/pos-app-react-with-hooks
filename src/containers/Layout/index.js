@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { Layout as ALayout, Menu, Dropdown, Row, Col } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
-import {ApartmentOutlined, BarChartOutlined, DownOutlined, LogoutOutlined} from '@ant-design/icons';
+import {BarcodeOutlined, BarChartOutlined, DownOutlined, LogoutOutlined, TeamOutlined} from '@ant-design/icons';
 import './../../App.css';
 import {getUserRole, removeTokenAndUser} from "../Auth/utils";
 import {AppGlobalContext} from "../../Common/Components/AppGlobalContext";
@@ -40,11 +40,11 @@ const Layout = props => {
                     <Menu.Item key="1" icon={<BarChartOutlined />}>
                         <Link to="/dashboard">Dashboard</Link>
                     </Menu.Item>
-                    <Menu.Item key="2" icon={<ApartmentOutlined />}>
+                    <Menu.Item key="2" icon={<BarcodeOutlined />}>
                         <Link to="/sales">Sales</Link>
                     </Menu.Item>
                     {getUserRole() && getUserRole() === 'admin' && (
-                        <Menu.Item key="3" icon={<ApartmentOutlined />}>
+                        <Menu.Item key="3" icon={<TeamOutlined />}>
                             <Link to="/user-account">User Account</Link>
                         </Menu.Item>
                     )}
