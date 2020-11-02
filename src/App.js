@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {  Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
 import './App.css';
-import Login from "./containers/Auth/Login";
+import Login from "./containers/Auth/Login/Loadable";
 import Error404 from './Common/Components/Error404';
-import Dashboard from "./containers/Dashboard";
-import UserAccount from "./containers/UserAccount";
-import Sales from "./containers/Sales";
+import Dashboard from "./containers/Dashboard/Loadable";
+import UserAccount from "./containers/UserAccount/Loadable";
+import Sales from "./containers/Sales/Loadable";
 import { isAuthenticatedUser} from "./containers/Auth/utils";
-import Layout from "./containers/Layout";
+import Layout from "./containers/Layout/Loadable";
 import {AppGlobalContextProvider} from "./Common/Components/AppGlobalContext";
 
 const Auth = () => (
