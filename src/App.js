@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {  Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import './App.css';
 import Login from "./containers/Auth/Login/Loadable";
@@ -17,6 +17,7 @@ const Auth = () => (
 );
 
 const AppLayout = () => {
+
     return (
         <AppGlobalContextProvider>
             <Layout>
