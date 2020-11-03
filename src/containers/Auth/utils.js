@@ -28,3 +28,4 @@ export const isAuthenticatedUser = () => {
 export const landingRoute = user => {
     return '/dashboard';
 };
+

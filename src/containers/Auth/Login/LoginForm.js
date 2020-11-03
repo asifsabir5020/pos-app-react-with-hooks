@@ -8,7 +8,8 @@ import AInput from "./../../../Common/Components/Input/AInput";
 import AButton from "./../../../Common/Components/Input/AButton";
 import {LOGIN_API_URL} from "./constants";
 import {throwServerError} from "../../../Common/utiles/throwServerError";
-import {landingRoute, setTokenAndUser} from "../utils";
+import { landingRoute, setTokenAndUser} from "../utils";
+import {connectLoggedInUserWithSocket} from "../../../Common/socket";
 
 const LoginForm = () => {
     const history = useHistory();
@@ -36,11 +37,13 @@ const LoginForm = () => {
                         await setTokenAndUser(token, user);
                         await resetForm();
                         await history.push(landingRoute(user));
+                        connectLoggedInUserWithSocket();
                         message.success('Successfully Logged in!');
                     }catch (e){
                         throwServerError(e)
                     }
             }}
+            autoFill="off"
         >
             {({ isSubmitting, dirty }) => (<Form>
                 <Row gutter={10}>

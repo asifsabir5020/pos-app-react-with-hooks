@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { getAuthToken } from '../../containers/Auth/utils';
+import {SERVER} from "./globleConstants";
+import {getServerPort} from "./globleUtils";
 
-const server = 'localhost';
-// const server = '192.168.0.104';
-let baseURL = `http://${server}:8080/api/v1`; // development mode
-if (process.env.NODE_ENV === 'production') {
-    baseURL = `http://${server}:8000/api/v1`; // production mode
-}
+
+const baseURL = `http://${SERVER}:${getServerPort()}/api/v1`;
 export { baseURL };
 const token = getAuthToken() || '';
 
