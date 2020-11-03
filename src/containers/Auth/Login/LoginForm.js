@@ -7,7 +7,6 @@ import * as Yup from 'yup';
 import AInput from "./../../../Common/Components/Input/AInput";
 import AButton from "./../../../Common/Components/Input/AButton";
 import {LOGIN_API_URL} from "./constants";
-import {throwServerError} from "../../../Common/utiles/throwServerError";
 import {landingRoute, setTokenAndUser} from "../utils";
 
 const LoginForm = () => {
@@ -38,7 +37,7 @@ const LoginForm = () => {
                         await history.push(landingRoute(user));
                         message.success('Successfully Logged in!');
                     }catch (e){
-                        throwServerError(e)
+                        console.error(e)
                     }
             }}
         >

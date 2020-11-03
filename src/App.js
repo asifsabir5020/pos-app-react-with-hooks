@@ -1,14 +1,12 @@
 import React  from 'react';
 import {  Route, Switch, Redirect, withRouter } from 'react-router-dom';
 import './App.css';
-import Login from "./containers/Auth/Login/Loadable";
+import Login from "./containers/Auth/Login";
 import Error404 from './Common/Components/Error404';
-import Dashboard from "./containers/Dashboard/Loadable";
-import UserAccount from "./containers/UserAccount/Loadable";
-import Sales from "./containers/Sales/Loadable";
+import Dashboard from "./containers/Dashboard";
+import ProductCategory from "./containers/ProductCategory"
 import { isAuthenticatedUser} from "./containers/Auth/utils";
-import Layout from "./containers/Layout/Loadable";
-import {AppGlobalContextProvider} from "./Common/Components/AppGlobalContext";
+import Layout from "./containers/Layout";
 
 const Auth = () => (
     <Switch>
@@ -19,17 +17,14 @@ const Auth = () => (
 const AppLayout = () => {
 
     return (
-        <AppGlobalContextProvider>
             <Layout>
                 <Switch>
                     <Route path='/' component={Dashboard} exact/>
                     <Route path='/dashboard' component={Dashboard} exact/>
-                    <Route path='/sales' component={Sales}/>
-                    <Route path='/user-account' component={UserAccount}/>
+                    <Route path='/product-category' component={ProductCategory}/>
                     <Route component={Error404} />
                 </Switch>
             </Layout>
-        </AppGlobalContextProvider>
     );
 }
 

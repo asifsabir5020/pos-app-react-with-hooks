@@ -1,40 +1,29 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { Input, Modal} from "antd";
+import axios from 'axios';
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
 import { columns} from "./columns";
 import ProductCategoryForm from "./ProductCategoryForm";
 import Table from "../../Common/Components/Table";
 import AButton from "../../Common/Components/Input/AButton";
-import useFetch from "../../Common/hooks/useFetch";
 
 const ProductCategory = () => {
     const [selectedRecord, setSelectedRecord] = useState({});
+    const [fetchedList, setFetchedList] = useState([]);
     const [shouldShowModal, setShouldShowModal] = useState(false);
-    const [fetchListDep, setFetchListDep] = useState(0);
-    const [searchQuery, setSearchQuery] = useState('');
-    const refreshList = () => setFetchListDep(fetchListDep + 1);
     const isEditMode = Object.keys(selectedRecord).length > 0;
 
-    const { filteredData: data, loading } = useFetch(PRODUCT_CATEGORY_API_URL, {
-        config: { params: {} },
-        deps: [fetchListDep],
-        searchQuery,
-        callBack: () => {
-            // setGlobalLoading(false);
-            // console.log('callBack');
-        },
-        callBefore: () => {
-            // setGlobalLoading(true);
-            // console.log('callBefore');
-        },
-    });
-
+    useEffect(() => {
+        (async () => {
+            const response = await axios.get(PRODUCT_CATEGORY_API_URL);
+            setFetchedList(response.data);
+        })();
+    }, []);
     return (
         <div>
             <Table
-                loading={loading}
-                dataSource={data}
-                columns={columns({ setSelectedRecord, setShouldShowModal, refreshList})}
+                dataSource={fetchedList}
+                columns={columns({ setSelectedRecord, setShouldShowModal})}
                 showSorterTooltip={false}
                 scroll={{ y: 500 }}
                 onRow={record => ({
@@ -55,7 +44,7 @@ const ProductCategory = () => {
                     </>
                 )}
                 customeSearchRender={() => (
-                    <Input placeholder="Search" onChange={e => setSearchQuery(e.target.value)}/>
+                    <Input placeholder="Search" />
                 )}
             />
             <Modal
@@ -73,7 +62,6 @@ const ProductCategory = () => {
                     isEditMode={isEditMode}
                     setShouldShowModal={setShouldShowModal}
                     setSelectedRecord={setSelectedRecord}
-                    refreshList={refreshList}
                 />
             </Modal>
         </div>

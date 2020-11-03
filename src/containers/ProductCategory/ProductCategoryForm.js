@@ -6,10 +6,9 @@ import AInput from "./../../Common/Components/Input/AInput";
 import AButton from './../../Common/Components/Input/AButton';
 import axios from "axios";
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
-import {throwServerError} from "../../Common/utiles/throwServerError";
 
 const ProductCategoryForm = props => {
-    const { selectedRecord, isEditMode, setShouldShowModal, setSelectedRecord, refreshList } = props;
+    const { selectedRecord, isEditMode, setShouldShowModal, setSelectedRecord } = props;
     const params = {
         title: selectedRecord.title || '',
     };
@@ -27,26 +26,24 @@ const ProductCategoryForm = props => {
                         await axios.put(`${PRODUCT_CATEGORY_API_URL}/${selectedRecord._id}`, {
                             ...values
                         });
-                        await refreshList();
                         await setShouldShowModal(false);
                         await setSelectedRecord({});
                         await resetForm();
                         message.success('Product Category Updated Successfully!');
                     }catch (e){
-                        throwServerError(e)
+                        console.error(e);
                     }
                 }else{
                     try{
                         await axios.post(PRODUCT_CATEGORY_API_URL, {
                             ...values
                         });
-                        await refreshList();
                         await setShouldShowModal(false);
                         await setSelectedRecord({});
                         await resetForm();
                         message.success('Product Category Created Successfully!');
                     }catch (e){
-                        throwServerError(e)
+                        console.error(e);
                     }
                 }
             }}

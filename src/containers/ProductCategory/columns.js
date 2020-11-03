@@ -2,21 +2,18 @@ import React from 'react';
 import axios from 'axios';
 import {message, Modal} from 'antd';
 import { ExclamationCircleOutlined} from '@ant-design/icons';
-import * as sorter from './../../Common/utiles/sorters';
 import ActionIcon from "../../Common/Components/ActionIcon";
-import {throwServerError} from "../../Common/utiles/throwServerError";
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
 
-export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) => {
+export const columns = ({ setSelectedRecord, setShouldShowModal}) => {
 
     const handleDelete = async record => {
         try {
             await axios.delete(`${PRODUCT_CATEGORY_API_URL}/${record._id}`);
-            await refreshList();
             await setSelectedRecord({});
             message.success('Product Category Deleted Successfully!');
         } catch (e) {
-            throwServerError(e);
+            console.error(e)
         }
     }
 
@@ -25,7 +22,6 @@ export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) =
             title: 'Name',
             dataIndex: 'title',
             key: 'title',
-            sorter: (a, b) => sorter.characterSorter(a,b, 'title'),
         },
         {
             title: 'Action',

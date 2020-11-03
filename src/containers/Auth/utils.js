@@ -1,5 +1,3 @@
-import {throwServerError} from "../../Common/utiles/throwServerError";
-
 export const setTokenAndUser = (token, user = {}) => {
     localStorage.setItem('auth_token', token);
     localStorage.setItem('user', JSON.stringify(user));
@@ -21,7 +19,7 @@ export const isAuthenticatedUser = () => {
         const token = localStorage.getItem('auth_token');
         return !!token;
     }catch(e){
-        throwServerError(e)
+        console.error(e)
     }
 };
 

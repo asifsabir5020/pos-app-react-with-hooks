@@ -1,15 +1,13 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { Layout as ALayout, Menu, Dropdown, Row, Col } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
-import {BarcodeOutlined, BarChartOutlined, DownOutlined, LogoutOutlined, TeamOutlined} from '@ant-design/icons';
+import {BarcodeOutlined, BarChartOutlined, DownOutlined, LogoutOutlined} from '@ant-design/icons';
 import './../../App.css';
-import {getUserRole, removeTokenAndUser} from "../Auth/utils";
-import {AppGlobalContext} from "../../Common/Components/AppGlobalContext";
+import { removeTokenAndUser} from "../Auth/utils";
 
 const { Header, Content, Footer, Sider } = ALayout;
 
 const Layout = props => {
-    const [appGlobalContext] = useContext(AppGlobalContext);
     const history = useHistory();
     const menu = (
         <Menu>
@@ -41,24 +39,14 @@ const Layout = props => {
                         <Link to="/dashboard">Dashboard</Link>
                     </Menu.Item>
                     <Menu.Item key="2" icon={<BarcodeOutlined />}>
-                        <Link to="/sales">Sales</Link>
+                        <Link to="/product-category">Product Category</Link>
                     </Menu.Item>
-                    {getUserRole() && getUserRole() === 'admin' && (
-                        <Menu.Item key="3" icon={<TeamOutlined />}>
-                            <Link to="/user-account">User Account</Link>
-                        </Menu.Item>
-                    )}
                 </Menu>
             </Sider>
             <ALayout className="site-layout" style={{ marginLeft: 200 }}>
                 <Header className="site-layout-background" style={{ padding: 0 }} >
                     <Row>
-                        <Col span={2}>
-                            <span style={{ marginLeft: 15, fontSize: 20}}>
-                                    { appGlobalContext.sectionTitle }
-                            </span>
-                        </Col>
-                        <Col span={2} offset={20}>
+                        <Col span={2} offset={22}>
                             <Dropdown overlay={menu}>
                               <span style={{ cursor: 'pointer'}}>
                                   User <DownOutlined />
