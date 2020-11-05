@@ -21,6 +21,7 @@ const Table = props => {
                 {...props}
                 rowKey={rowKey}
                 pagination={{position: ["bottomLeft"], pageSize: 10}}
+                size="small"
             />
         </>
     );

@@ -1,10 +1,12 @@
 import React, {useContext} from 'react';
 import { Layout as ALayout, Menu, Dropdown, Row, Col } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
-import {BarcodeOutlined, BarChartOutlined, DownOutlined, LogoutOutlined, TeamOutlined} from '@ant-design/icons';
+import { DownOutlined, LogoutOutlined} from '@ant-design/icons';
 import './../../App.css';
-import {getUserRole, removeTokenAndUser} from "../Auth/utils";
+import { removeTokenAndUser} from "../Auth/utils";
 import {AppGlobalContext} from "../../Common/Components/AppGlobalContext";
+import {APP_MENU} from "./AppMenu";
+import CustomIcon from "../../Common/Components/CustomIcon";
 
 const { Header, Content, Footer, Sider } = ALayout;
 
@@ -36,18 +38,14 @@ const Layout = props => {
                 <div className="logo">
                     POS
                 </div>
-                <Menu theme="light" mode="inline" defaultSelectedKeys={['4']}>
-                    <Menu.Item key="1" icon={<BarChartOutlined />}>
-                        <Link to="/dashboard">Dashboard</Link>
-                    </Menu.Item>
-                    <Menu.Item key="2" icon={<BarcodeOutlined />}>
-                        <Link to="/sales">Sales</Link>
-                    </Menu.Item>
-                    {getUserRole() && getUserRole() === 'admin' && (
-                        <Menu.Item key="3" icon={<TeamOutlined />}>
-                            <Link to="/user-account">User Account</Link>
-                        </Menu.Item>
-                    )}
+                <Menu theme="light" mode="inline" defaultSelectedKeys={[`${history.location.pathname}`]}>
+                    {APP_MENU.map(item => {
+                        return (
+                            <Menu.Item key={item.link} icon={<CustomIcon type={item.icon}/>}>
+                                <Link to={item.link}>{item.label}</Link>
+                            </Menu.Item>
+                        )
+                    })}
                 </Menu>
             </Sider>
             <ALayout className="site-layout" style={{ marginLeft: 200 }}>
@@ -66,7 +64,6 @@ const Layout = props => {
                             </Dropdown>
                         </Col>
                     </Row>
-
                 </Header>
                 <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
                     <div className="site-layout-background" style={{ padding: 24, textAlign: 'center' }}>

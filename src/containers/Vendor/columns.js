@@ -5,16 +5,16 @@ import { ExclamationCircleOutlined} from '@ant-design/icons';
 import * as sorter from './../../Common/utiles/sorters';
 import CustomIcon from "../../Common/Components/CustomIcon";
 import {throwServerError} from "../../Common/utiles/throwServerError";
-import {PRODUCT_API_URL} from "./constants";
+import {VENDOR_API_URL} from "./constants";
 
 export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) => {
 
     const handleDelete = async record => {
         try {
-            await axios.delete(`${PRODUCT_API_URL}/${record._id}`);
+            await axios.delete(`${VENDOR_API_URL}/${record._id}`);
             await refreshList();
             await setSelectedRecord({});
-            message.success('Product Deleted Successfully!');
+            message.success('Vendor Deleted Successfully!');
         } catch (e) {
             throwServerError(e);
         }
@@ -23,15 +23,15 @@ export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) =
     return [
         {
             title: 'Name',
-            dataIndex: 'title',
-            key: 'title',
-            sorter: (a, b) => sorter.characterSorter(a,b, 'title'),
+            dataIndex: 'name',
+            key: 'name',
+            sorter: (a, b) => sorter.characterSorter(a,b, 'name'),
         },
         {
-            title: 'Category',
-            dataIndex: 'productCategory',
-            key: 'productCategory',
-            sorter: (a, b) => sorter.characterSorter(a,b, 'productCategory'),
+            title: 'Contact',
+            dataIndex: 'contact',
+            key: 'contact',
+            sorter: (a, b) => sorter.characterSorter(a,b, 'contact'),
         },
         {
             title: 'Action',
@@ -49,7 +49,7 @@ export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) =
                         onClick={async () => {
                             Modal.confirm({
                                 icon: <ExclamationCircleOutlined />,
-                                content: 'Do you want to delete this Product?',
+                                content: 'Do you want to delete this Vendor?',
                                 okText: 'Yes',
                                 cancelText: 'No',
                                 onOk() {

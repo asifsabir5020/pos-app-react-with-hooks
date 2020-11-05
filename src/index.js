@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { createBrowserHistory } from "history";
 import './index.css';
-import App from './App';
+import App from './containers/App/Loadable';
 import {baseURL} from './Common/utiles/axoisConfig';
 import reportWebVitals from './reportWebVitals';
 import {getUserEmail} from "./containers/Auth/utils";

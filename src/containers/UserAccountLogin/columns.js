@@ -4,8 +4,9 @@ import {message, Switch} from 'antd';
 import * as sorter from './../../Common/utiles/sorters';
 import {throwServerError} from "../../Common/utiles/throwServerError";
 import { USER_STATUS_TOGGLE_API_URL} from "./constants";
+import CustomIcon from "../../Common/Components/CustomIcon";
 
-export const columns = ({ setSelectedRecord, refreshList}) => {
+export const columns = ({ setSelectedRecord, refreshList, setShouldShowPermissionsModal}) => {
 
     const handleStatusToggle = async record => {
         try {
@@ -46,7 +47,11 @@ export const columns = ({ setSelectedRecord, refreshList}) => {
             align: 'center',
             render: (text, record) => (
                 <>
-                    <Switch checked={record.status} onChange={() => handleStatusToggle(record)}/>
+                    <CustomIcon title="User Permissions" type="user" onClick={() => {
+                        setSelectedRecord(record);
+                        setShouldShowPermissionsModal(true);
+                    }} />
+                    <Switch size="small" checked={record.status} onChange={() => handleStatusToggle(record)} style={{ marginLeft: 10}}/>
                 </>
             )
         }

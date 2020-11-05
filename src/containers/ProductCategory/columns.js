@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import {message, Modal} from 'antd';
+import {message, Modal, Tooltip} from 'antd';
 import { ExclamationCircleOutlined} from '@ant-design/icons';
 import * as sorter from './../../Common/utiles/sorters';
-import ActionIcon from "../../Common/Components/ActionIcon";
+import CustomIcon from "../../Common/Components/CustomIcon";
 import {throwServerError} from "../../Common/utiles/throwServerError";
 import {PRODUCT_CATEGORY_API_URL} from "./constants";
 
@@ -34,11 +34,11 @@ export const columns = ({ setSelectedRecord, setShouldShowModal, refreshList}) =
             align: 'center',
             render: (text, record) => (
                 <>
-                    <ActionIcon type="edit" onClick={() => {
+                    <CustomIcon type="edit" onClick={() => {
                         setSelectedRecord(record);
                         setShouldShowModal(true);
                     }} />
-                    <ActionIcon
+                    <CustomIcon
                         type="delete"
                         onClick={async () => {
                             Modal.confirm({

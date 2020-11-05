@@ -1,24 +1,32 @@
-import React, { useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Input, Modal} from "antd";
-import {PRODUCT_CATEGORY_API_URL} from "./constants";
+import {USER_API_URL} from "./constants";
 import { columns} from "./columns";
-import ProductCategoryForm from "./ProductCategoryForm";
+import UserForm from "./UserForm";
 import Table from "../../Common/Components/Table";
 import AButton from "../../Common/Components/Input/AButton";
 import useFetch from "../../Common/hooks/useFetch";
+import {AppGlobalContext} from "../../Common/Components/AppGlobalContext";
+import Permissions from './Permissions';
 
-const ProductCategory = () => {
+const UserAccount = () => {
     const [selectedRecord, setSelectedRecord] = useState({});
     const [shouldShowModal, setShouldShowModal] = useState(false);
+    const [shouldShowPermissionsModal, setShouldShowPermissionsModal] = useState(false);
     const [fetchListDep, setFetchListDep] = useState(0);
     const [searchQuery, setSearchQuery] = useState('');
     const refreshList = () => setFetchListDep(fetchListDep + 1);
     const isEditMode = Object.keys(selectedRecord).length > 0;
 
-    const { filteredData: data, loading } = useFetch(PRODUCT_CATEGORY_API_URL, {
+    const [appGlobalContext, setAppGlobalContext] = useContext(AppGlobalContext);
+    useEffect(() => {
+        setAppGlobalContext({...appGlobalContext, sectionTitle: 'User Account'});
+    },[]);
+
+    const { filteredData: data, loading } = useFetch(USER_API_URL, {
         config: { params: {} },
         deps: [fetchListDep],
-        searchQuery
+        searchQuery,
     });
 
     return (
@@ -26,7 +34,12 @@ const ProductCategory = () => {
             <Table
                 loading={loading}
                 dataSource={data}
-                columns={columns({ setSelectedRecord, setShouldShowModal, refreshList})}
+                columns={columns({
+                    setSelectedRecord,
+                    setShouldShowModal,
+                    refreshList,
+                    setShouldShowPermissionsModal,
+                })}
                 showSorterTooltip={false}
                 scroll={{ y: 500 }}
                 onRow={record => ({
@@ -51,7 +64,7 @@ const ProductCategory = () => {
                 )}
             />
             <Modal
-                title={isEditMode ? 'Modify Category':'Add Category'}
+                title={isEditMode ? 'Modify User':'Add User'}
                 visible={shouldShowModal}
                 onCancel={() => {
                     setShouldShowModal(false);
@@ -59,8 +72,9 @@ const ProductCategory = () => {
                 }}
                 footer={false}
                 maskClosable={false}
+                width="40%"
             >
-                <ProductCategoryForm
+                <UserForm
                     selectedRecord={selectedRecord}
                     isEditMode={isEditMode}
                     setShouldShowModal={setShouldShowModal}
@@ -68,8 +82,26 @@ const ProductCategory = () => {
                     refreshList={refreshList}
                 />
             </Modal>
+            <Modal
+                title="User Permissions"
+                visible={shouldShowPermissionsModal}
+                onCancel={() => {
+                    setShouldShowPermissionsModal(false);
+                    setSelectedRecord({});
+                }}
+                footer={false}
+                maskClosable={false}
+                width="40%"
+                destroyOnClose
+            >
+                <Permissions
+                    selectedRecord={selectedRecord}
+                    setShouldShowPermissionsModal={setShouldShowPermissionsModal}
+                    setSelectedRecord={setSelectedRecord}
+                />
+            </Modal>
         </div>
 
     );
 };
-export default ProductCategory;
+export default UserAccount;

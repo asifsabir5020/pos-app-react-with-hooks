@@ -18,18 +18,10 @@ const Product = () => {
     const { filteredData: data, loading } = useFetch(PRODUCT_API_URL, {
         config: { params: {} },
         deps: [fetchListDep],
-        searchQuery,
-        callBack: () => {
-            // setGlobalLoading(false);
-            // console.log('callBack');
-        },
-        callBefore: () => {
-            // setGlobalLoading(true);
-            // console.log('callBefore');
-        },
+        searchQuery
     });
 
-    const finalData = data.map(item => {
+    const finalData = data && data.map(item => {
         return {
             ...item,
             productCategory: item.category && item.category.title
