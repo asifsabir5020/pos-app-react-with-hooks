@@ -67,6 +67,7 @@ const Product = () => {
                 footer={false}
                 maskClosable={false}
                 width="40%"
+                destroyOnClose
             >
                 <ProductForm
                     selectedRecord={selectedRecord}

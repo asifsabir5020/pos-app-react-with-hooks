@@ -59,6 +59,7 @@ const Customer = () => {
                 }}
                 footer={false}
                 maskClosable={false}
+                destroyOnClose
             >
                 <CustomerForm
                     selectedRecord={selectedRecord}

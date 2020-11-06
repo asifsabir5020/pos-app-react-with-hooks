@@ -56,6 +56,7 @@ const ProductCategory = () => {
                 }}
                 footer={false}
                 maskClosable={false}
+                destroyOnClose
             >
                 <ProductCategoryForm
                     selectedRecord={selectedRecord}

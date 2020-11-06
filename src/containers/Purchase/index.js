@@ -74,6 +74,7 @@ const Purchase = () => {
                 footer={false}
                 maskClosable={false}
                 width="25%"
+                destroyOnClose
             >
                 <PurchaseForm
                     selectedRecord={selectedRecord}

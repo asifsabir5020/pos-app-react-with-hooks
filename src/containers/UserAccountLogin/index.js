@@ -73,6 +73,7 @@ const UserAccount = () => {
                 footer={false}
                 maskClosable={false}
                 width="40%"
+                destroyOnClose
             >
                 <UserForm
                     selectedRecord={selectedRecord}
